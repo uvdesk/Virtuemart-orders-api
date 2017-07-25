@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset >
+		<field
+			 name="keyid"
+			 type="text"
+			 label="COM_WKAPI_ID"
+			 description=""
+			 class="inputbox"
+			 default="0"
+		  	 readonly="true"
+			/>
+			<field
+			 name="selectUser"
+			 type="user"
+			 required="true"
+			 label="COM_WKAPI_SELECT_USER"
+			 description=""
+			 class="inputbox"
+			 />
+			 <field
+			 	 name="domain"
+			 	 type="url"
+			 	 label="WKAPI_DOMIN"
+			 	 description=""
+			 	 default="http://www.example.com"
+			/>
+
+	</fieldset>
+</form>
