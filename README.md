@@ -1,7 +1,6 @@
 --------------------------------------------
 Virtuemart orders api
 --------------------------------------------
---------------------------------------------
 
 * Contributors: Webkul Team
 * License: GNU/GPL for more info see license.txt included with plugin
@@ -10,7 +9,8 @@ Virtuemart orders api
 ------------------------------------
 Description 
 ------------------------------------
-Module integrated api with virtuemart store. Api uses Api key to Access data using api.
+Module integrates orders api with virtuemart store. 
+Module uses Api key to Access data using api.
 After installation API Section can be found under Components >> Wkapi
 ------------------------------------
 Features
