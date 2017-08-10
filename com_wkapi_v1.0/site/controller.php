@@ -203,10 +203,22 @@ class WkapiController extends JControllerLegacy
 		$response['status']=$this->rest->get_status_message();
 		$app = JFactory::getApplication()->input;
 		$header=apache_request_headers();
-		if(isset($header['orderid'])){
-			$virtuemart_order_id=$header['orderid'];
-			$orderId=$orderModel::getOrderIdByOrderNumber($virtuemart_order_id);
-			$orderdata=$orderModel->getOrder($orderId);
+        if (isset($header['orderid'])) {
+            $virtuemart_order_id=$header['orderid'];
+            $orderId=$orderModel::getOrderIdByOrderNumber($virtuemart_order_id);
+            $paymentModel=VmModel::getModel('paymentmethod');
+            $shipmentModel=VmModel::getModel('shipmentmethod');
+            $paymentMethods=array();
+            $shipmentmethods=array();
+            $orderdata=$orderModel->getOrder($orderId);
+            if (isset($orderdata['details'])&&count($orderdata['details'])) {
+        		$paymentMethods=$paymentModel->getPayment($orderdata['details']['BT']->virtuemart_paymentmethod_id);
+				$shipmentmethods=$shipmentModel->getShipment($orderdata['details']['BT']->virtuemart_shipmentmethod_id);
+				$orderdata['details']['BT']->payment_name=$paymentMethods->payment_name;
+				$orderdata['details']['BT']->shipment_name=$shipmentmethods->shipment_name;
+            }
+			
+			// $orderdata['paymentMethods']=$paymentmethod;
 			if(!isset($orderId)){
 				$response['data']='Order id is incorrect';
 			}else{
