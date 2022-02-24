@@ -48,9 +48,9 @@ class WkapiController extends JControllerLegacy
 		//getHeaders
 		$appSite=JFactory::getApplication();
 	    $header=apache_request_headers();
-	    if(isset($header['authorization'])){
+	    if(isset($header['Authorization'])){
 
-      	  $key=explode('Bearer ',$header['authorization']);
+      	  $key=explode('Bearer ',$header['Authorization']);
       	  if(isset($key[1])&&JString::strlen(JString::trim($key[1]))){
       	 	 $key=JString::trim($key[1]);
       	 	 $checkKey=$model->checkUserKey($key);
@@ -58,7 +58,7 @@ class WkapiController extends JControllerLegacy
       	 	}
       	}else{
       		 $this->rest->response(json_encode('Autherization Failed'),401,'json');
-      	}       
+      	}
         if($checkKey){
 	   		$api->processApi();
 			$app->input->set('view', $view);
@@ -78,7 +78,7 @@ class WkapiController extends JControllerLegacy
         	$this->$func();
         }
         else{
-            $this->rest->response('Error code 404, Page not found',404,'json');   
+            $this->rest->response('Error code 404, Page not found',404,'json');
         }
 	}
 	    function xml( $data, &$xml_data ) {
@@ -112,7 +112,7 @@ class WkapiController extends JControllerLegacy
 	        $table .= "\t<tr>" ;
 	        foreach ($row as $cell) {
 	            $table .= '<td>';
-	            if (is_object($cell)) { $cell = (array) $cell; }            
+	            if (is_object($cell)) { $cell = (array) $cell; }
 	            if ($recursive === true && is_array($cell) && !empty($cell)) {
 	                $table .= "\n" . array2table($cell, true, true) . "\n";
 	            } else {
@@ -132,14 +132,14 @@ class WkapiController extends JControllerLegacy
 			require_once(JPATH_ADMINISTRATOR.'/components/com_virtuemart/helpers/config.php');
 			VmConfig::loadConfig();
 		}
-		
+
 		VmConfig::loadJLang('com_virtuemart_orders',true);
 		$countryCode=0;
 		$stateCode=0;
 		$app = JFactory::getApplication()->input;
 		//getHeaders
 		$header=apache_request_headers();
-		
+
 		$response['http_code']=$this->rest->_code;
 		$response['status']=$this->rest->get_status_message();
 		if(isset($header['countryid'])){
@@ -217,7 +217,7 @@ class WkapiController extends JControllerLegacy
 				$orderdata['details']['BT']->payment_name=$paymentMethods->payment_name;
 				$orderdata['details']['BT']->shipment_name=$shipmentmethods->shipment_name;
             }
-			
+
 			// $orderdata['paymentMethods']=$paymentmethod;
 			if(!isset($orderId)){
 				$response['data']='Order id is incorrect';
@@ -242,7 +242,7 @@ class WkapiController extends JControllerLegacy
 		}else{
 			$this->rest->response(json_encode($response), $this->rest->_code,'json');
 		}
-		JFactory::getApplication()->close();	 
+		JFactory::getApplication()->close();
 	}
 
 }
